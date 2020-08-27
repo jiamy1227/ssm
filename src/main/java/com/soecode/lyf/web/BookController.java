@@ -2,10 +2,13 @@ package com.soecode.lyf.web;
 
 import java.util.List;
 
+import com.soecode.lyf.util.AppConfig;
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +32,24 @@ public class BookController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
+	AppConfig appConfig;
+
+	@Autowired
 	private BookService bookService;
+
+	@RequestMapping(value = "/resourceTest", method = RequestMethod.GET)
+	private String resourceTest(Model model) {
+		logger.info(appConfig.name+":::"+appConfig.age);
+		// list.jsp + model = ModelAndView
+		return "list";// WEB-INF/jsp/"list".jsp
+	}
+
+	@RequestMapping(value = "/aopTest", method = RequestMethod.GET)
+	private String aopTest(String s) {
+
+		// list.jsp + model = ModelAndView
+		return "list";// WEB-INF/jsp/"list".jsp
+	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	private String list(Model model) {
